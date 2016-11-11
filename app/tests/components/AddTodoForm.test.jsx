@@ -18,7 +18,7 @@ describe('AddTodoForm', () => {
     const $el = $(ReactDom.findDOMNode(addTodoForm))
 
     addTodoForm.refs.todo.value = todoText
-    TestUtils.Simulate.submit($el.find('form')[0])
+    TestUtils.Simulate.submit(addTodoForm.refs.form)
 
     expect(spy).toHaveBeenCalledWith(todoText)
   })
@@ -30,7 +30,7 @@ describe('AddTodoForm', () => {
     const $el = $(ReactDom.findDOMNode(addTodoForm))
 
     addTodoForm.refs.todo.value = todoText
-    TestUtils.Simulate.submit($el.find('form')[0])
+    TestUtils.Simulate.submit(addTodoForm.refs.form)
 
     expect(spy).toNotHaveBeenCalled()
   })
