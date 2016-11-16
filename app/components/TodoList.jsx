@@ -5,10 +5,10 @@ const PropTypes = React.PropTypes;
 const TodoList = React.createClass({
 
   render: function () {
-    const {todos} = this.props;
+    const {todos, onToggle} = this.props;
     function renderTodos() {
       return todos.map((todo) => {
-        return <Todo key={todo.id} {...todo}/>
+        return <Todo key={todo.id} onToggle={onToggle} {...todo}/>
       })
     };
 
