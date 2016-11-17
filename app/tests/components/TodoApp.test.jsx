@@ -22,7 +22,7 @@ describe('TodoApp', () => {
     expect(todoApp.state.todos).toEqual([])
   })
 
-  it('should add to item to state on handleAddTodo', () => {
+  it('should add item to state on handleAddTodo', () => {
     const todoText = 'todo text'
     const todoApp = TestUtils.renderIntoDocument(<TodoApp/>)
 
@@ -30,6 +30,7 @@ describe('TodoApp', () => {
     todoApp.handleAddTodo(todoText)
 
     expect(todoApp.state.todos[0].text).toBe(todoText)
+    expect(todoApp.state.todos[0].createdAt).toBeA('number')
     expect(TodoApi.getTodos()).toEqual(todoApp.state.todos)
   })
 
@@ -37,7 +38,8 @@ describe('TodoApp', () => {
     const todoItem = {
       id: 11,
       text: 'some todo',
-      completed: false
+      completed: false,
+      createdAt: 1
     }
     const todoApp = TestUtils.renderIntoDocument(<TodoApp/>)
 
@@ -46,6 +48,26 @@ describe('TodoApp', () => {
     expect(todoApp.state.todos[0].completed).toBe(false)
     todoApp.handleToggle(todoItem.id)
     expect(todoApp.state.todos[0].completed).toBe(true)
+    expect(todoApp.state.todos[0].completedAt).toBeA('number')
+    expect(TodoApi.getTodos()).toEqual(todoApp.state.todos)
+  })
+
+  it('should undefine completedAt, when toggling from true to false', () => {
+    const todoItem = {
+      id: 11,
+      text: 'some todo',
+      completed: true,
+      createdAt: 1,
+      completedAt: 2
+    }
+    const todoApp = TestUtils.renderIntoDocument(<TodoApp/>)
+
+    todoApp.setState({todos: [todoItem]})
+
+    expect(todoApp.state.todos[0].completed).toBe(true)
+    todoApp.handleToggle(todoItem.id)
+    expect(todoApp.state.todos[0].completed).toBe(false)
+    expect(todoApp.state.todos[0].completedAt).toNotExist()
     expect(TodoApi.getTodos()).toEqual(todoApp.state.todos)
   })
 })
