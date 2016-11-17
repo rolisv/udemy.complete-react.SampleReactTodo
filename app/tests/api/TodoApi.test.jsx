@@ -56,11 +56,11 @@ describe('TodoApi', () => {
         {
           id: 11,
           text: 'save files',
-          compconsted: false
+          completed: false
         }, {
           id: 22,
           text: 'reboot pc',
-          compconsted: true
+          completed: true
         }
       ]
 
@@ -78,6 +78,38 @@ describe('TodoApi', () => {
       localStorage.setItem('todos', JSON.stringify(todos))
 
       expect(TodoApi.getTodos()).toEqual([])
+    })
+  })
+
+  describe('filterTodos', () => {
+    const todos = [
+      {
+        id: 11,
+        text: 'Save files',
+        completed: false
+      }, {
+        id: 22,
+        text: 'reBoot pc',
+        completed: true
+      }, {
+        id: 33,
+        text: 'reload browser',
+        completed: false
+      }
+    ]
+
+    it('should show completed todos, when showCompleted is true', () => {
+      expect(TodoApi.filterTodos(todos, '', true)).toEqual([todos[0], todos[2], todos[1]])
+    })
+
+    it('should not show completed todos, when showCompleted is false', () => {
+      expect(TodoApi.filterTodos(todos, '', false)).toEqual([todos[0], todos[2]])
+    })
+
+    it('should show matching text todos', () => {
+      expect(TodoApi.filterTodos(todos, 'sa', true)).toEqual([todos[0]])
+      expect(TodoApi.filterTodos(todos, 'boo', true)).toEqual([todos[1]])
+      expect(TodoApi.filterTodos(todos, 're', true)).toEqual([todos[2], todos[1]])
     })
   })
 })
