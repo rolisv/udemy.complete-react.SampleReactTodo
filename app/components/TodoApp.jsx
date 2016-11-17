@@ -11,7 +11,7 @@ const TodoApp = React.createClass({
   getInitialState: function () {
     return {searchText: '', showCompleted: false, todos: TodoApi.getTodos()}
   },
-  componentsDidUpdate: function () {
+  componentDidUpdate: function () {
     TodoApi.setTodos(this.state.todos)
   },
 

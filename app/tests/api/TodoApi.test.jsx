@@ -12,22 +12,22 @@ describe('TodoApi', () => {
 
   describe('setTodos', () => {
     it('should work with []', () => {
-      let todos = []
+      const todos = []
       TodoApi.setTodos(todos)
 
       expect(JSON.parse(localStorage.getItem('todos'))).toEqual(todos)
     })
 
     it('should set a valid array', () => {
-      let todos = [
+      const todos = [
         {
           id: 11,
           text: 'save files',
-          completed: false
+          compconsted: false
         }, {
           id: 22,
           text: 'reboot pc',
-          completed: true
+          compconsted: true
         }
       ]
       TodoApi.setTodos(todos)
@@ -36,7 +36,7 @@ describe('TodoApi', () => {
     })
 
     it('should not set a non-array', () => {
-      let todos = {
+      const todos = {
         a: 'a',
         b: 'b'
       }
@@ -51,22 +51,33 @@ describe('TodoApi', () => {
       expect(TodoApi.getTodos()).toEqual([])
     })
 
-    it('should return array when valid data stored', () => {
-      let todos = [
+    it('should return array, when valid data stored', () => {
+      const todos = [
         {
           id: 11,
           text: 'save files',
-          completed: false
+          compconsted: false
         }, {
           id: 22,
           text: 'reboot pc',
-          completed: true
+          compconsted: true
         }
       ]
 
       localStorage.setItem('todos', JSON.stringify(todos))
 
       expect(TodoApi.getTodos()).toEqual(todos)
+    })
+
+    it('should return [], when non-array is stored', () => {
+      const todos = {
+        a: 'a',
+        b: 'b'
+      }
+
+      localStorage.setItem('todos', JSON.stringify(todos))
+
+      expect(TodoApi.getTodos()).toEqual([])
     })
   })
 })
