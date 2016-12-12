@@ -23,11 +23,11 @@ describe('TodoApi', () => {
         {
           id: 11,
           text: 'save files',
-          compconsted: false
+          completed: false
         }, {
           id: 22,
           text: 'reboot pc',
-          compconsted: true
+          completed: true
         }
       ]
       TodoApi.setTodos(todos)
